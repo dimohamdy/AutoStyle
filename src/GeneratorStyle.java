@@ -25,7 +25,7 @@ public class GeneratorStyle {
 //					.build(new File("ViewTest.xml"));
             org.jdom2.Document document = builder.build(new File(openFile));
 
-            System.out.print(openFile);
+           // System.out.print(openFile);
             Element root = document.getRootElement();
             ElementFilter filter = new org.jdom2.filter.ElementFilter(
                     "subviews");
@@ -35,8 +35,17 @@ public class GeneratorStyle {
                 // System.out.println(c.getTextNormalize());
                 // fmt.output(c, System.out);
                 uiElements = c.getChildren();
+                //System.out.print(uiElements.toString()) ;
+                 // System.out.print(uiElements.size()+"") ;
                 for (int count = 0; count < uiElements.size(); count++) {
-
+                 //System.out.print(uiElements.get(count).toString()) ;
+                    
+//                System.out.println(uiElements.get(count).getName());
+//                System.out.println(uiElements.get(count).getAttributeValue("userLabel").toUpperCase());
+//                System.out.println(uiElements.get( count));
+//                                    System.out.println("++++++++++++++++++");
+                    
+                    if(uiElements.get( count).getAttribute("userLabel")!=null){
                     String result = setProperties(
                             uiElements.get(count).getName(), uiElements.get(
                             count).getAttributeValue("userLabel").toUpperCase(), uiElements.get(
@@ -45,11 +54,11 @@ public class GeneratorStyle {
                     if (!result.equals("not")) {
                         //System.out.print(styleCode);
                         styleCode += result + "\n ==============================================\n";
-
-
+                    
 
                     }
 
+                    }
                 }
 
             }
@@ -68,6 +77,8 @@ public class GeneratorStyle {
     }
 
     public static String setProperties(String typeUI, String name, Element element) {
+     
+        
         if (typeUI.equalsIgnoreCase("label")) {
 
            
