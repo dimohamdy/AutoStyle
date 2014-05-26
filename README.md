@@ -14,12 +14,12 @@ want to not ignore by application for make for it name not depend on the default
 
 
 
-![alt tag](https://github.com/dimohamdy/autoStyle/blob/master/DashBoardViewController.xib.png "Correct and  Wrong")
+![alt tag](https://raw.githubusercontent.com/dimohamdy/autoStyle/master/DashBoardViewController.xib.png "Correct and  Wrong")
 
 
 
 
-![alt tag](https://github.com/dimohamdy/autoStyle/blob/master/fontCorrect.png "Correct")
+![alt tag](https://raw.githubusercontent.com/dimohamdy/autoStyle/master/fontCorrect.png "Correct")
 
 
 
