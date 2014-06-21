@@ -10,3 +10,4 @@ want to not ignore by application for make for it name not depend on the default
 Notes:
 
 Now We Support only UITextFeild,UILable,UITextView,UIButton
+

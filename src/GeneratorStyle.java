@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -11,11 +12,68 @@ import org.jdom2.output.XMLOutputter;
 public class GeneratorStyle {
 
     static String basename = "";
+   List<Connection> connections;
+    
+    void    GeneratorConnection(String openFile) {
+        // Assume filename argument
 
+
+
+        try {
+            // Build the document with SAX and Xerces, no validation
+            SAXBuilder builder = new SAXBuilder();
+            // Create the document
+//			org.jdom2.Document document = builder
+//					.build(new File("ViewTest.xml"));
+            org.jdom2.Document document = builder.build(new File(openFile));
+
+           // System.out.print(openFile);
+            Element root = document.getRootElement();
+            ElementFilter filter = new org.jdom2.filter.ElementFilter(
+                    "connections");
+            XMLOutputter fmt = new XMLOutputter();
+            List<Element> uiElements = null;
+            for (Element c : root.getDescendants(filter)) {
+                // System.out.println(c.getTextNormalize());
+                // fmt.output(c, System.out);
+                uiElements = c.getChildren();
+
+                
+                
+                System.out.println(uiElements.size());
+                     connections = new ArrayList<Connection>();
+                 if(uiElements.size()>0) {
+                for (int count = 0; count < uiElements.size(); count++) {
+
+
+                    
+               String property  =          uiElements.get(count).getAttributeValue("property");
+               String destination=         uiElements.get(count).getAttributeValue("destination");
+
+                connections.add(new Connection(property,destination));
+                   
+                }
+            
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    
+    
+    
+    
+    
     GeneratorStyle(String openFile, String saveFile) {
         // Assume filename argument
         basename = FilenameUtils.getBaseName(saveFile).toUpperCase();
-
+        GeneratorConnection(openFile);
         String styleCode = "";
         try {
             // Build the document with SAX and Xerces, no validation
@@ -32,23 +90,17 @@ public class GeneratorStyle {
             XMLOutputter fmt = new XMLOutputter();
             List<Element> uiElements = null;
             for (Element c : root.getDescendants(filter)) {
-                // System.out.println(c.getTextNormalize());
-                // fmt.output(c, System.out);
+
                 uiElements = c.getChildren();
-                //System.out.print(uiElements.toString()) ;
-                 // System.out.print(uiElements.size()+"") ;
+
                 for (int count = 0; count < uiElements.size(); count++) {
-                 //System.out.print(uiElements.get(count).toString()) ;
-                    
-//                System.out.println(uiElements.get(count).getName());
-//                System.out.println(uiElements.get(count).getAttributeValue("userLabel").toUpperCase());
-//                System.out.println(uiElements.get( count));
-//                                    System.out.println("++++++++++++++++++");
-                    
-                    if(uiElements.get( count).getAttribute("userLabel")!=null){
+        String property=connections.get(count).propertyName;
+                   
+                 //   if(uiElements.get( count).getAttribute("userLabel")!=null){
                     String result = setProperties(
-                            uiElements.get(count).getName(), uiElements.get(
-                            count).getAttributeValue("userLabel").toUpperCase(), uiElements.get(
+                            
+                            uiElements.get(count).getName(),
+                             property, uiElements.get(
                             count));
 
                     if (!result.equals("not")) {
@@ -58,7 +110,7 @@ public class GeneratorStyle {
 
                     }
 
-                    }
+          //          }
                 }
 
             }
