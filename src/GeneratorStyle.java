@@ -1,8 +1,6 @@
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -35,6 +33,7 @@ public class GeneratorStyle {
                     "connections");
             XMLOutputter fmt = new XMLOutputter();
             List<Element> uiElements = null;
+            connections = new ArrayList<Connection>();
             for (Element c : root.getDescendants(filter)) {
                 // System.out.println(c.getTextNormalize());
                 // fmt.output(c, System.out);
@@ -43,11 +42,11 @@ public class GeneratorStyle {
 
 
                 System.out.println(uiElements.size());
-                connections = new ArrayList<Connection>();
+
                 if (uiElements.size() > 0) {
                     for (int count = 0; count < uiElements.size(); count++) {
 
-
+                        if(uiElements.get(count).getName().equals("outlet")){
 
                         String property = uiElements.get(count).getAttributeValue("property");
                         String destination = uiElements.get(count).getAttributeValue("destination");
@@ -55,22 +54,10 @@ public class GeneratorStyle {
                         connections.add(new Connection(property, destination));
 
                     }
-//                    //Sorting
-//                    Collections.sort(connections, new Comparator<Connection>() {
-//
-//                        @Override
-//                        public int compare(Connection con1, Connection con2) {
-//
-//                            return con1.destination.compareTo(con2.destination);
-//
-//
-//                        }
-//                    });
-
-
-
-
-
+                    
+                    
+                  }
+                 System.out.println("Size"+connections.size());
                 }
 
             }
